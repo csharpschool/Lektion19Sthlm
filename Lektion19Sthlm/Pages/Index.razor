@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using Lektion19Sthlm.Classes;
+@using Lektion19Sthlm.Exceptions;
 @inject LambdaMethods lm
 
 <h1>Book List</h1>
@@ -30,8 +31,10 @@
     </tbody>
 </table>
 
+<div>@error</div>
+
 @code{
-    string filter = string.Empty;
+    string filter = string.Empty, error = string.Empty;
     List<Book> books = new();
 
     void OnInput(ChangeEventArgs e)
@@ -42,7 +45,21 @@
 
     void GetBooks()
     {
-        books = lm.Get(b => b.Title.ToLower().StartsWith(filter.ToLower()));
-        filter = string.Empty;
+        try
+        {
+            books = lm.Get(null);
+            //books = lm.Get(b => b.Title.ToLower().StartsWith(filter.ToLower()));
+            filter = string.Empty;
+        }
+        catch (BookException ex)
+        {
+            error = ex.Message;
+            if (ex.Book is not null) error += ex.Book.Title;
+        }
+        catch
+        {
+            error = "Oops...";
+        }
+
     }
 }

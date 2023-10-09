@@ -1,4 +1,6 @@
-﻿namespace Lektion19Sthlm.Classes;
+﻿using Lektion19Sthlm.Exceptions;
+
+namespace Lektion19Sthlm.Classes;
 
 public class Book
 {
@@ -23,14 +25,33 @@ public class LambdaMethods
     {
         try
         {
-            return lambda is null ? Books : Books.Where(lambda).ToList();
+            if (lambda is null)
+                throw new BookException("The lambda expression is null.");
+
+            return Books.Where(lambda).ToList();
+
+            //return lambda is null ? Books : Books.Where(lambda).ToList();
 
             /*if (lambda is null) return Books;
             return Books.Where(lambda).ToList();*/
         }
+        catch (BookException) { throw; }
         catch
         {
             return new List<Book>();
+        }
+        
+    }
+
+    public void TestTryCatch()
+    {
+        try
+        {
+
+        }
+        catch (Exception)
+        {
+            
         }
     }
 }

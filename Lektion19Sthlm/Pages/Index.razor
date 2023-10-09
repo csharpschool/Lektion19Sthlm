@@ -1,0 +1,48 @@
+﻿@page "/"
+@using Lektion19Sthlm.Classes;
+@inject LambdaMethods lm
+
+<h1>Book List</h1>
+
+<input @bind="filter" />
+<button class="btn btn-primary" @onclick="GetBooks">Get Books</button>
+
+<br />
+
+<input type="text" @oninput="e => OnInput(e)" />
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in books)
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Title</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code{
+    string filter = string.Empty;
+    List<Book> books = new();
+
+    void OnInput(ChangeEventArgs e)
+    {
+        filter = e.Value.ToString();
+        GetBooks();
+    }
+
+    void GetBooks()
+    {
+        books = lm.Get(b => b.Title.ToLower().StartsWith(filter.ToLower()));
+        filter = string.Empty;
+    }
+}

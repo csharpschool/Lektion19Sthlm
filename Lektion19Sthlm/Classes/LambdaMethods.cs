@@ -16,9 +16,9 @@ public class LambdaMethods
 
     public LambdaMethods()
     {
-        Books.Add(new Book(1, "Dragon Ninja"));
-        Books.Add(new Book(2, "Shadow Walker"));
-        Books.Add(new Book(3, "Dragon Reborn"));
+        Books.Add(new Book(1001, "Dragon Ninja"));
+        Books.Add(new Book(1002, "Shadow Walker"));
+        Books.Add(new Book(1003, "Dragon Reborn"));
     }
 
     public List<Book> Get(Func<Book, bool>? lambda)

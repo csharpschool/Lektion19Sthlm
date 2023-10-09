@@ -53,6 +53,7 @@
         }
         catch (BookException ex)
         {
+            //Enum.GetNames(typeof(MyEnum))
             error = ex.Message;
             if (ex.Book is not null) error += ex.Book.Title;
         }

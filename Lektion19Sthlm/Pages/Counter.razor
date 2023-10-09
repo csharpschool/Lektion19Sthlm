@@ -1,4 +1,6 @@
 ﻿@page "/counter"
+@using Lektion19Sthlm.Classes;
+@inject LambdaMethods lm
 
 <PageTitle>Counter</PageTitle>
 
@@ -8,11 +10,25 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<select @onchange="e => SelectedItem(e)">
+    @foreach (var book in lm.Get(b => b.Title.StartsWith("Dr")))
+    {
+        <option value="@book.Id">@book.Title</option>
+    }
+</select>
+
 @code {
+    int value = 0;
     private int currentCount = 0;
+
+    void SelectedItem(ChangeEventArgs e)
+    {
+        
+    }
 
     private void IncrementCount()
     {
+        var slask = value;
         currentCount++;
     }
 }
